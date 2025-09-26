@@ -1,5 +1,9 @@
 # Jekyll
-theme: linkhub-jekyll-theme
+#theme: linkhub-jekyll-theme
+remote_theme: digitalmalayali/linkhub-jekyll-theme  # ✅ 이 방식 사용
+plugins:
+  - jekyll-remote-theme
+
 
 # Site Configuration
 name: Linkhub  # Name of your website
