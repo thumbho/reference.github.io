@@ -35,3 +35,5 @@ defaults:
     values:
       layout: "default"    
 
+# Exclude
+exclude: [README.md, Gemfile.lock, .jekyll-cache/, .github/, CHANGELOG.md, Gemfile, LICENSE.txt, funding.yml, linkhub-jekyll-theme.gemspec]
