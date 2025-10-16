@@ -366,18 +366,14 @@ footer {
   border: 2px solid var(--color-grey) !important;
 }
 
-/* === 균일 버튼 크기 설정(필수) === */
+/* 공통 버튼 크기 (원하는 값으로만 바꿔도 됨) */
 :root {
-  --btn-w: 240px;   /* 버튼 공통 너비 */
-  --btn-h: 48px;    /* 버튼 공통 높이 */
-  --btn-gap: .6rem; /* 아이콘/텍스트 간격 */
+  --btn-w: 240px;   /* 공통 너비 */
+  --btn-h: 48px;    /* 공통 높이 */
+  --btn-gap: .6rem; /* 아이콘-텍스트 간격 */
 }
 
-/* 중앙 정렬 + col이 내용폭만 차지하게 */
-.row { justify-content: center; }
-.col, .col.link { flex: 0 0 auto; }
-
-/* 버튼을 동일한 사각형으로 */
+/* 버튼을 동일한 사각형으로 고정 */
 .button {
   display: inline-flex;
   align-items: center;
@@ -385,25 +381,35 @@ footer {
   gap: var(--btn-gap);
 
   width: var(--btn-w);
-  height: var(--btn-h);     /* 높이 고정 */
-  padding: 0 .9rem;         /* 세로는 height로, 가로만 패딩 */
-  white-space: nowrap;      /* 두 줄 이상으로 늘어나지 않게 */
+  height: var(--btn-h);   /* 세로 고정 */
+  padding: 0 .9rem;       /* 가로만 패딩 */
+  white-space: nowrap;    /* 두 줄 방지 */
   overflow: hidden;
-  text-overflow: ellipsis;  /* 너무 길면 … 처리 */
+  text-overflow: ellipsis;
 }
 
-/* fixed-button-width 옵션이 true일 때 템플릿의 inline width:50%를 덮어쓰기 */
+/* col 이 늘어나지 않게(내용폭만 차지) + 중앙 정렬 */
+.row { justify-content: center; }
+.col, .col.link { flex: 0 0 auto; }
+
+/* 템플릿에서 inline width가 있어도 우리 규칙이 이기도록 */
 .button[style*="width"] { width: var(--btn-w) !important; }
 
 /* 아이콘/커스텀 아이콘은 크기 고정(줄 높이 영향 최소화) */
 .iconify-inline,
 .custom-icon { flex: 0 0 auto; }
 
-/* TAG 배지 여백 정리(폭 동일 유지) */
+/* TAG 배지 여백만 살짝 */
 .button .tag { margin-left: .75rem; }
 
-/* 모바일에선 가득차게(선택) */
+/* 다크모드 테두리 보정 (선택) */
+#theme-switch.bd-primary {
+  border: 2px solid var(--color-grey) !important;
+}
+
+/* 모바일에선 꽉 차게(선택) */
 @media screen and (max-width: 599px) {
   .button,
   .button[style*="width"] { width: 100% !important; }
-  :root { --btn-h: 52px; } /* 터치 영역 살짝 키움(선택) */
+  :root { --btn-h: 52px; } /* 터치 영역 살짝 키움 */
+}
