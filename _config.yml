@@ -7,7 +7,7 @@ plugins:
 
 # Site Configuration
 name: joy___snow # Name of your website
-tagline: Links  # Set your preferred page title
+tagline: SB  # Set your preferred page title
 description: This is Archive main page.  # Also used as a meta description
 favicon:
   path: assets/snapshot.png # Path / URL to the favicon of your website (e.g., 'assets/images/favicon.png')
