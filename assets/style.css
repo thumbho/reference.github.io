@@ -366,58 +366,69 @@ footer {
   border: 2px solid var(--color-grey) !important;
 }
 
-/* ===== [최종본] 버튼 동일 크기 강제 ===== */
+/* ===== 모바일까지 동일 크기 강제 (iOS Safari 대응 포함) ===== */
 :root{
   --btn-w: 240px;   /* 공통 너비 */
   --btn-h: 48px;    /* 공통 높이 */
   --btn-gap: .6rem; /* 아이콘-텍스트 간격 */
 }
 
-/* 공통: 버튼을 동일한 사각형으로 고정 */
+/* 버튼: 그리드로 중앙정렬(모바일 baseline/line-height 이슈 제거) */
 .button{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:var(--btn-gap);
+  display: grid;
+  grid-auto-flow: column;          /* 아이콘-텍스트-배지 가로 배치 */
+  justify-content: center;
+  align-items: center;
+  gap: var(--btn-gap);
 
-  width:var(--btn-w);
-  height:var(--btn-h);
-  min-height:var(--btn-h);
-  max-height:var(--btn-h);
+  width: var(--btn-w);
+  height: var(--btn-h);
+  min-height: var(--btn-h);
+  max-height: var(--btn-h);
 
-  padding:0 .9rem;           /* 세로는 height로만 제어 */
-  white-space:nowrap;        /* 두 줄 방지 */
-  overflow:hidden;
-  text-overflow:ellipsis;
-  line-height:1;             /* iOS 글자 확대로 높이 흔들림 방지 */
-  box-sizing:border-box;
+  padding: 0 .9rem;                /* 세로는 height로 제어 */
+  box-sizing: border-box;
+
+  white-space: nowrap;             /* 두 줄 방지 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  line-height: 1;                  /* 글줄 높이 고정 */
+  font-size: 16px;                 /* iOS 텍스트 자동확대 방지 */
+  -webkit-text-size-adjust: 100%;  /* iOS 텍스트 자동확대 방지 */
 }
 
-/* 행/열 정렬: 콘텐츠만 차지 + 중앙 */
-.row{ justify-content:center; }
-.col, .col.link{ flex:0 0 auto; }
+/* 행/열: 콘텐츠만 차지 + 중앙정렬 */
+.row{ justify-content: center; }
+.col, .col.link{ flex: 0 0 auto; }
 
-/* 템플릿이 인라인 width를 줘도 무시 */
-.button[style*="width"]{ width:var(--btn-w) !important; }
+/* 인라인 width가 있어도 무시(템플릿 옵션 보호) */
+.button[style*="width"]{ width: var(--btn-w) !important; }
 
-/* 내부 요소 줄높이 고정(모바일 Safari 높이 튐 방지) */
-.button *{ line-height:1; }
+/* 내부 요소도 줄높이 고정(세로치수 흔들림 방지) */
+.button *{ line-height: 1; }
 
-/* 아이콘 크기를 1em로 고정 */
+/* 아이콘 크기 고정 */
 .iconify-inline,
-.custom-icon{ flex:0 0 auto; }
-.custom-icon svg{ width:1em; height:1em; vertical-align:-0.125em; }
+.custom-icon{ flex: 0 0 auto; }
+.custom-icon svg,
+.iconify-inline svg{ width: 1em; height: 1em; }
 
-/* TAG 배지 여백만 살짝 */
-.button .tag{ margin-left:.75rem; }
-
-/* (선택) 다크모드 스위치 테두리 */
-#theme-switch.bd-primary{ border:2px solid var(--color-grey) !important; }
-
-/* 📱모바일에서도 'PC와 동일 크기' 유지
-   => width:100%로 바꾸지 않음! 높이도 동일 유지 */
-@media screen and (max-width:599px){
-  :root{ --btn-h:48px; }     /* 필요시 48px 그대로 유지 */
-  .button,
-  .button[style*="width"]{ width:var(--btn-w) !important; }
+/* TAG 배지 높이 편차 줄이기 */
+.button .tag{
+  margin-left: .75rem;
+  padding: .3rem .5rem;  /* 기존 0.5rem 보다 살짝 축소 */
+  line-height: 1;
 }
+
+/* iOS 사파리 전용 강제 높이(추가 안전장치) */
+@supports (-webkit-touch-callout: none){
+  .button{ height: var(--btn-h) !important; }
+}
+
+/* 모바일에서도 PC와 동일한 가로폭 유지 (100%로 늘리지 않음) */
+@media screen and (max-width: 599px){
+  .button,
+  .button[style*="width"]{ width: var(--btn-w) !important; }
+}
+
