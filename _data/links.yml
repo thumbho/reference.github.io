@@ -56,7 +56,7 @@ buttons:
 #      url: https://www.example.com
     - title: Breath Haus
 #      url: https://www.example.com
-      icon: ion:cloud
+      icon: ion:cafe-outline
       tag: Map
 
 #  - category: Works
