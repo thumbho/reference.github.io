@@ -432,3 +432,10 @@ footer {
   .button[style*="width"]{ width: var(--btn-w) !important; }
 }
 
+.category {
+  margin-bottom: 1.5rem;  /* 카테고리 아래 간격 */
+}
+
+.category + .category {
+  margin-top: 1.5rem;  /* 다음 카테고리 위 간격 */
+}
