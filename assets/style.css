@@ -366,50 +366,58 @@ footer {
   border: 2px solid var(--color-grey) !important;
 }
 
-/* 공통 버튼 크기 (원하는 값으로만 바꿔도 됨) */
-:root {
+/* ===== [최종본] 버튼 동일 크기 강제 ===== */
+:root{
   --btn-w: 240px;   /* 공통 너비 */
   --btn-h: 48px;    /* 공통 높이 */
   --btn-gap: .6rem; /* 아이콘-텍스트 간격 */
 }
 
-/* 버튼을 동일한 사각형으로 고정 */
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--btn-gap);
+/* 공통: 버튼을 동일한 사각형으로 고정 */
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--btn-gap);
 
-  width: var(--btn-w);
-  height: var(--btn-h);   /* 세로 고정 */
-  padding: 0 .9rem;       /* 가로만 패딩 */
-  white-space: nowrap;    /* 두 줄 방지 */
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width:var(--btn-w);
+  height:var(--btn-h);
+  min-height:var(--btn-h);
+  max-height:var(--btn-h);
+
+  padding:0 .9rem;           /* 세로는 height로만 제어 */
+  white-space:nowrap;        /* 두 줄 방지 */
+  overflow:hidden;
+  text-overflow:ellipsis;
+  line-height:1;             /* iOS 글자 확대로 높이 흔들림 방지 */
+  box-sizing:border-box;
 }
 
-/* col 이 늘어나지 않게(내용폭만 차지) + 중앙 정렬 */
-.row { justify-content: center; }
-.col, .col.link { flex: 0 0 auto; }
+/* 행/열 정렬: 콘텐츠만 차지 + 중앙 */
+.row{ justify-content:center; }
+.col, .col.link{ flex:0 0 auto; }
 
-/* 템플릿에서 inline width가 있어도 우리 규칙이 이기도록 */
-.button[style*="width"] { width: var(--btn-w) !important; }
+/* 템플릿이 인라인 width를 줘도 무시 */
+.button[style*="width"]{ width:var(--btn-w) !important; }
 
-/* 아이콘/커스텀 아이콘은 크기 고정(줄 높이 영향 최소화) */
+/* 내부 요소 줄높이 고정(모바일 Safari 높이 튐 방지) */
+.button *{ line-height:1; }
+
+/* 아이콘 크기를 1em로 고정 */
 .iconify-inline,
-.custom-icon { flex: 0 0 auto; }
+.custom-icon{ flex:0 0 auto; }
+.custom-icon svg{ width:1em; height:1em; vertical-align:-0.125em; }
 
 /* TAG 배지 여백만 살짝 */
-.button .tag { margin-left: .75rem; }
+.button .tag{ margin-left:.75rem; }
 
-/* 다크모드 테두리 보정 (선택) */
-#theme-switch.bd-primary {
-  border: 2px solid var(--color-grey) !important;
-}
+/* (선택) 다크모드 스위치 테두리 */
+#theme-switch.bd-primary{ border:2px solid var(--color-grey) !important; }
 
-/* 모바일에선 꽉 차게(선택) */
-@media screen and (max-width: 599px) {
+/* 📱모바일에서도 'PC와 동일 크기' 유지
+   => width:100%로 바꾸지 않음! 높이도 동일 유지 */
+@media screen and (max-width:599px){
+  :root{ --btn-h:48px; }     /* 필요시 48px 그대로 유지 */
   .button,
-  .button[style*="width"] { width: 100% !important; }
-  :root { --btn-h: 52px; } /* 터치 영역 살짝 키움 */
+  .button[style*="width"]{ width:var(--btn-w) !important; }
 }
